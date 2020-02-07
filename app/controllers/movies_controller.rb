@@ -14,8 +14,15 @@ class MoviesController < ApplicationController
     if params[:order_by] 
       @hilite = params[:order_by]
     end
+    
+    @all_ratings = Movie.all_ratings
+    if params.key?(:ratings)
+      @selected_ratings = params[:ratings].keys
+    else
+      @selected_ratings = @all_ratings
+    end
 	 
-    @movies = Movie.order(params[:order_by])
+    @movies = Movie.order(params[:order_by]).with_ratings(@selected_ratings)
   end
 
   def new
