@@ -11,6 +11,11 @@ class MoviesController < ApplicationController
   end
 
   def index
+    if params.key?(:sort_by) 
+      sort_by = params[:sort_by]
+      @hilite = sort_by
+    end
+	    
     @movies = Movie.all
   end
 
